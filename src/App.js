@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import Login from './components/Pages/Login';
+import Dashboard from './components/Pages/Dashboard';
+import PagenotFound from './components/Pages/PagenotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ManageOrganizer from './components/Pages/Organizer/ManageOrganizer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ToastContainer />
+      <BrowserRouter>
+      <Routes>
+      <Route exact path="/" element={<Login />} />
+      <Route exact path="*" element={<PagenotFound />} />
+        <Route element={<Layout />} >
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/organizer-list" element={<ManageOrganizer />} />
+          {/* <Route exact path="/dashboard" element={<Protected Component={Dashboard} />} /> */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </>
+
   );
 }
 
