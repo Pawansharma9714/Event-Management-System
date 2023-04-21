@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { ADMIN_APIS, validEmail, ValidPassword } from "../../../utils/Config";
 import { Button } from "react-bootstrap";
 import axios from "axios";
-import AddOraganizer from "../../Modal/AddOraganizer";
+import AddOraganizer from "../../Modals/AddOraganizer";
 import NoDataFound from "../../../utils/NoDataFound";
 
 export default function ManageOrganizer() {

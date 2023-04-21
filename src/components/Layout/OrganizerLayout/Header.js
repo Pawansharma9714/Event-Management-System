@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  let navigate = useNavigate();
+  
+  const btnLogout = () => {
+    localStorage.removeItem("EventAuth");
+    navigate("/organizer/login");
+  };
   return (
     <>
       <nav
@@ -64,7 +71,7 @@ export default function Header() {
                   <div className="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="auth-login-basic.html">
+                  <a className="dropdown-item cursor-pointer" onClick={btnLogout}>
                     <i className="bx bx-power-off me-2"></i>
                     <span className="align-middle">Log Out</span>
                   </a>

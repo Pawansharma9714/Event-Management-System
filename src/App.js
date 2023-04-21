@@ -6,7 +6,8 @@ import Login from "./components/Pages/Auth/Login";
 import Dashboard from "./components/Pages/Dashboard";
 import PageNotFound from "./utils/PageNotFound";
 import ManageOrganizer from "./components/Pages/Organizer/ManageOrganizer";
-import Protected from "./components/Layout/Protected";
+import AdminProtected from "./components/Protected/AdminProtected";
+import EventProtected from "./components/Protected/EventProtected";
 import OraganizerLogin from "./components/Pages/Auth/OraganizerLogin";
 import ManageEvent from "./components/Pages/Event/ManageEvent";
 import OrganizerDashboard from "./components/Pages/OrganizerDashboard";
@@ -18,10 +19,11 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="*" element={<PageNotFound />} />
           <Route exact path="/organizer/login" element={<OraganizerLogin />} />
+          <Route exact path="*" element={<PageNotFound />} />
           <Route element={<Layout />}>
-            <Route element={<Protected />}>
+            {/* ADMIN */}
+            <Route element={<AdminProtected />}>
               <Route exact path="/dashboard" element={<Dashboard />} />
               <Route
                 exact
@@ -29,12 +31,16 @@ function App() {
                 element={<ManageOrganizer />}
               />
             </Route>
-            <Route
-              exact
-              path="/organizer/dashboard"
-              element={<OrganizerDashboard />}
-            />
-            <Route exact path="/event-list" element={<ManageEvent />} />
+
+            {/* ORGANIZER */}
+            <Route element={<EventProtected />}>
+              <Route
+                exact
+                path="/organizer/dashboard"
+                element={<OrganizerDashboard />}
+              />
+              <Route exact path="/event-list" element={<ManageEvent />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

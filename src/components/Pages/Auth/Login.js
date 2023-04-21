@@ -6,6 +6,8 @@ import { ADMIN_APIS } from "../../../utils/Config";
 import Loader from "../../../utils/Loader";
 
 export default function Login() {
+  let auth = localStorage.getItem("Auth");
+
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState(false);
   const [inputValue, setInputValue] = useState({
@@ -54,8 +56,6 @@ export default function Login() {
       });
   };
 
-  let auth = localStorage.getItem("Auth");
-
   useEffect(() => {
     if (auth) {
       navigate("/dashboard");
@@ -64,7 +64,6 @@ export default function Login() {
 
   return (
     <>
-      
       {!auth ? (
         <div className="container-xxl">
           <div className="authentication-wrapper authentication-basic container-p-y">

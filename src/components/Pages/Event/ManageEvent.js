@@ -4,7 +4,7 @@ import NoDataFound from "../../../utils/NoDataFound";
 import { ADMIN_APIS } from "../../../utils/Config";
 import { toast } from "react-toastify";
 import axios from "axios";
-import AddEvent from "../../Modal/AddEvent";
+import AddEvent from "../../Modals/AddEvent";
 
 export default function ManageEvent() {
   const [add, setAdd] = useState(false);
@@ -143,9 +143,9 @@ export default function ManageEvent() {
       });
   };
 
-//   useEffect(() => {
-//     fetchData();
-//   }, []);
+  //   useEffect(() => {
+  //     fetchData();
+  //   }, []);
 
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
