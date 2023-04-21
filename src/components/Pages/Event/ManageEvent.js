@@ -1,34 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { ADMIN_APIS, validEmail, ValidPassword } from "../../../utils/Config";
 import { Button } from "react-bootstrap";
-import axios from "axios";
-import AddOraganizer from "../../Modal/AddOraganizer";
 import NoDataFound from "../../../utils/NoDataFound";
+import { ADMIN_APIS } from "../../../utils/Config";
+import { toast } from "react-toastify";
+import axios from "axios";
+import AddEvent from "../../Modal/AddEvent";
 
-export default function ManageOrganizer() {
+export default function ManageEvent() {
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [data, setData] = useState([{ name: "s" }]);
+  const [data, setData] = useState([]);
 
   /* Modal Switch Value. */
-  const [isStatusSwitchOn, setIsStatusSwitchOn] = useState(false);
-  const [isPaymentSwitchOn, setIsPaymentSwitchOn] = useState(false);
-  const [isSMSSwitchOn, setIsSMSSwitchOn] = useState(false);
+  const [isEventSwitchOn, setIsEventSwitchOn] = useState(false);
 
   /* Modal Input Value. */
   const [inputValue, setInputValue] = useState({
-    name: "",
-    contactno: "",
-    address: "",
-    email: "",
-    username: "",
-    password: "",
-    apiKey: "",
-    secreatKey: "",
-    smsAPIKey: "",
-    smsSnder: "",
-    smsTemplate: "",
+    eventname: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    location: "",
+    city: "",
+    organizerName: "",
+    fees: "",
+    feeDescription: "",
   });
 
   /* Modal Input Onchange. */
@@ -45,114 +41,82 @@ export default function ManageOrganizer() {
     setAdd(true);
     setEdit(false);
     setInputValue("");
-    setIsStatusSwitchOn(false);
-    setIsPaymentSwitchOn(false);
-    setIsSMSSwitchOn(false);
+    setIsEventSwitchOn(false);
   };
+
   /* List Edit Button. */
   const handleEdit = () => {
     setEdit(true);
     setAdd(true);
     setInputValue("");
-    setIsStatusSwitchOn(false);
-    setIsPaymentSwitchOn(false);
-    setIsSMSSwitchOn(false);
+    setIsEventSwitchOn(false);
   };
 
   /* Modal Switch Value Onchange. */
-  const onStatusSwitchAction = () => {
-    setIsStatusSwitchOn(!isStatusSwitchOn);
-  };
-  const onPaymentSwitchAction = () => {
-    setIsPaymentSwitchOn(!isPaymentSwitchOn);
-  };
-  const onSMSSwitchAction = () => {
-    setIsSMSSwitchOn(!isSMSSwitchOn);
+  const onEventSwitchAction = () => {
+    setIsEventSwitchOn(!isEventSwitchOn);
   };
 
   /* Modal Add Button */
   const handleBtnAdd = async () => {
-    if (!inputValue.name) {
+    if (!inputValue.eventname) {
       toast.dismiss();
-      toast.error("Enter Name");
+      toast.error("Enter Event Name");
       return false;
     }
-    if (!inputValue.contactno) {
+    if (!inputValue.description) {
       toast.dismiss();
-      toast.error("Enter ContactNo");
+      toast.error("Enter Description");
       return false;
     }
-    if(inputValue.contactno.length != 10){
+    if (!inputValue.startDate) {
       toast.dismiss();
-      toast.error("ContactNo must be 10 digit");
+      toast.error("Select StartDate");
       return false;
     }
-    if (!inputValue.address) {
+    if (!inputValue.endDate) {
       toast.dismiss();
-      toast.error("Enter Address");
+      toast.error("Select End Date");
       return false;
     }
-    if (!inputValue.email) {
+    if (!inputValue.location) {
       toast.dismiss();
-      toast.error("Enter Email");
+      toast.error("Enter Location");
       return false;
     }
-    if (!validEmail(inputValue.email)) {
+    if (!inputValue.city) {
       toast.dismiss();
-      toast.error("Enter Valid Email");
+      toast.error("Enter City");
       return false;
     }
-    if (!inputValue.username) {
+    if (!inputValue.organizerName) {
       toast.dismiss();
-      toast.error("Enter UserName");
+      toast.error("Enter Organizer Name");
       return false;
     }
-    if (!inputValue.password) {
+    if (!inputValue.fees) {
       toast.dismiss();
-      toast.error("Enter Password");
+      toast.error("Enter Fees");
       return false;
     }
-    if (!inputValue.apiKey) {
+    if (!inputValue.feeDescription) {
       toast.dismiss();
-      toast.error("Enter API Key");
+      toast.error("Enter Fees Description");
       return false;
     }
-    if (!inputValue.secreatKey) {
-      toast.dismiss();
-      toast.error("Enter Secreat Key");
-      return false;
-    }
-    if (!inputValue.smsAPIKey) {
-      toast.dismiss();
-      toast.error("Enter SMS API Key");
-      return false;
-    }
-    if (!inputValue.smsSnder) {
-      toast.dismiss();
-      toast.error("Enter SMS Sender");
-      return false;
-    }
-    if (!inputValue.smsTemplate) {
-      toast.dismiss();
-      toast.error("Enter SMS Template");
-      return false;
-    }
+
     await axios
-      .post(`${ADMIN_APIS.ORGANIZER.ADD}`, {
-        Name: inputValue.name,
-        ContactNo: inputValue.contactno,
-        Address: inputValue.address,
-        UserName: inputValue.username,
-        Password: inputValue.password,
-        Email: inputValue.email,
-        Status: isStatusSwitchOn,
-        PaymentIntegration: isPaymentSwitchOn,
-        APIkey: inputValue.apiKey,
-        Secretkey: inputValue.secreatKey,
-        IsSendSms: isSMSSwitchOn,
-        SmsAPIKey: inputValue.smsAPIKey,
-        SmsSender: inputValue.smsSnder,
-        SMSTemplate: inputValue.smsTemplate,
+      .post(`${ADMIN_APIS.EVENT.ADD}`, {
+        eventname: inputValue.eventname,
+        description: inputValue.description,
+        startDate: inputValue.startDate,
+        endDate: inputValue.endDate,
+        location: inputValue.location,
+        city: inputValue.city,
+        organizerName: inputValue.organizerName,
+        fees: inputValue.fees,
+        feeDescription: inputValue.feeDescription,
+        hideOtherField: isEventSwitchOn,
       })
       .then((res) => {
         console.log("res", res);
@@ -170,7 +134,7 @@ export default function ManageOrganizer() {
   /* List */
   const fetchData = async () => {
     await axios
-      .get(`${ADMIN_APIS.ORGANIZER.LIST}`)
+      .get(`${ADMIN_APIS.EVENT.LIST}`)
       .then((res) => {
         console.log("res", res);
       })
@@ -179,14 +143,14 @@ export default function ManageOrganizer() {
       });
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
 
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
       <h4 className="fw-bold py-3 mb-4 d-flex align-items-center justify-content-between">
-        <span className="">Manage / Oraganizer</span>
+        <span className="">Manage / Event</span>
         <Button
           className="btn btn-primary w-px-100 m-1"
           variant="primary"
@@ -196,18 +160,14 @@ export default function ManageOrganizer() {
         </Button>
       </h4>
       <div className="card">
-        <AddOraganizer
+        <AddEvent
           add={add}
           edit={edit}
           handleClose={handleClose}
           inputValue={inputValue}
           handleInputValue={handleInputValue}
-          isStatusSwitchOn={isStatusSwitchOn}
-          isPaymentSwitchOn={isPaymentSwitchOn}
-          isSMSSwitchOn={isSMSSwitchOn}
-          onStatusSwitchAction={onStatusSwitchAction}
-          onPaymentSwitchAction={onPaymentSwitchAction}
-          onSMSSwitchAction={onSMSSwitchAction}
+          isEventSwitchOn={isEventSwitchOn}
+          onEventSwitchAction={onEventSwitchAction}
           handleBtnAdd={handleBtnAdd}
           handleBtnUpdate={handleBtnUpdate}
         />
@@ -216,20 +176,16 @@ export default function ManageOrganizer() {
           <table className="table">
             <thead>
               <tr className="text-center">
-                <th>Name</th>
-                <th>Contact No</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>UserName</th>
-                <th>Password</th>
-                <th>API Key</th>
-                <th>Secreat Key</th>
-                <th>SMS API Key</th>
-                <th>SMS Sender</th>
-                <th>SMS Template</th>
-                <th>Status</th>
-                <th>Payment Integration</th>
-                <th>Send SMS Permission</th>
+                <th>Event Name</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Location</th>
+                <th>City</th>
+                <th>Organizer Name</th>
+                <th>Registration Link</th>
+                <th>QR Code</th>
+                <th>User Link</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -240,10 +196,6 @@ export default function ManageOrganizer() {
                     data.map((item, key) => {
                       return (
                         <tr key={key}>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
                           <td></td>
                           <td></td>
                           <td></td>

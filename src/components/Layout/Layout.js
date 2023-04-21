@@ -1,26 +1,27 @@
 import React from "react";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import Footer from "./Footer";
-import { Outlet } from "react-router-dom";
+import AdminLayout from "./AdminLayout/AdminLayout";
+import OrganizerLayout from "./OrganizerLayout/OrganizerLayout";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function Layout() {
+  let location = useLocation();
+  let auth = localStorage.getItem("Auth");
   return (
     <>
-      <div className="layout-wrapper layout-content-navbar">
-        <div className="layout-container">
-          <Sidebar />
-          <div className="layout-page">
-            <Header />
-            <div className="content-wrapper">
-              <Outlet />
-              <Footer />
-              <div className="content-backdrop fade"></div>
-            </div>
-          </div>
-        </div>
-        <div className="layout-overlay layout-menu-toggle"></div>
-      </div>
+      {location.pathname === "/dashboard" ||
+      location.pathname === "/organizer-list" ? (
+        <>
+          {auth ? (
+            <AdminLayout />
+          ) : (
+            <>
+              <Navigate to="/" />
+            </>
+          )}
+        </>
+      ) : (
+        <OrganizerLayout />
+      )}
     </>
   );
 }
