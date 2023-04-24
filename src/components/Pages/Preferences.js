@@ -8,7 +8,6 @@ export default function Preferences() {
     : [];
 
   const [fieldTrue, setFieldTrue] = useState(false);
-  const [invoicesValue, setInvoicesValue] = useState(false);
   const [isMandatory, setIsMandatory] = useState(false);
   const [inputValue, setInputValue] = useState({
     labelName: "",
@@ -42,9 +41,6 @@ export default function Preferences() {
     setInputValue({ ...inputValue, [name]: value });
   };
 
-  const btnInvoices = () => {
-    setInvoicesValue(true);
-  };
 
   const handleIsMandatory = () => {
     setIsMandatory(!isMandatory);
@@ -62,14 +58,13 @@ export default function Preferences() {
       toast.error("Select Data Type");
       return false;
     }
-    // inputValue.dataType == FORM_TYPE.DROPDOWN
-    //   ? { dataType: inputValue.dataType, optionValue: inputFields }
-    //   : { dataType: inputValue.dataType },
-
 
     const newList = list.concat({
       labelName: inputValue.labelName,
-      dataType:inputValue.dataType,
+      dataType:
+        inputValue.dataType == FORM_TYPE.DROPDOWN
+          ? JSON.stringify({ dataType: inputValue.dataType, optionValue: inputFields })
+          : JSON.stringify({ dataType: inputValue.dataType }),
       isMandatory: isMandatory,
       fid: Math.random(),
     });
@@ -102,14 +97,12 @@ export default function Preferences() {
                       className="card-body overflow-auto"
                       id="vertical-example"
                     >
-                      <p className="cursor-pointer" onClick={btnInvoices}>
+                      <p className="cursor-pointer">
                         Invoices
                       </p>
                     </div>
                   </div>
                 </div>
-                {invoicesValue && (
-                  <>
                     {!fieldTrue ? (
                       <div className="col-lg-9">
                         <div className="d-flex justify-content-between">
@@ -153,7 +146,7 @@ export default function Preferences() {
                                         return (
                                           <tr key={key}>
                                             <td>{item.labelName}</td>
-                                            <td>{item.dataType}</td>
+                                            <td>{JSON.parse(item.dataType).dataType}</td>
                                             <td>
                                               {item.isMandatory
                                                 ? "True"
@@ -332,8 +325,6 @@ export default function Preferences() {
                         </div>
                       </div>
                     )}
-                  </>
-                )}
               </div>
             </div>
           </div>

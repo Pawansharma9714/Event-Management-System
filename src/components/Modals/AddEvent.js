@@ -186,7 +186,7 @@ export default function AddEvent(props) {
               />
             </Form.Group>
 
-            {list &&
+            {/* {list &&
               list.map((item, key) => {
                 return (
                   <div key={key}>
@@ -246,7 +246,7 @@ export default function AddEvent(props) {
                     )}
                   </div>
                 );
-              })}
+              })} */}
           </Form>
         </Modal.Body>
         <Modal.Footer>
