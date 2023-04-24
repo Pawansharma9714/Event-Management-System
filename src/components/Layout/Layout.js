@@ -12,14 +12,11 @@ export default function Layout() {
       {location.pathname === "/dashboard" ||
       location.pathname === "/organizer-list" ? (
         <>{auth ? <AdminLayout /> : <Navigate to="/" />}</>
-      ) : location.pathname === "/organizer/dashboard" ||
-        location.pathname === "/event-list" ? (
+      ) : (
         <>
           {eventAuth ? <OrganizerLayout /> : <Navigate to="/organizer/login" />}
         </>
-      ) : (
-        ""
-      )}
+      ) }
     </>
   );
 }

@@ -11,6 +11,7 @@ import EventProtected from "./components/Protected/EventProtected";
 import OraganizerLogin from "./components/Pages/Auth/OraganizerLogin";
 import ManageEvent from "./components/Pages/Event/ManageEvent";
 import OrganizerDashboard from "./components/Pages/OrganizerDashboard";
+import Preferences from "./components/Pages/Preferences";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 path="/organizer-list"
                 element={<ManageOrganizer />}
               />
+              <Route exact path="/preferences" element={<Preferences />} />
             </Route>
 
             {/* ORGANIZER */}
@@ -40,6 +42,7 @@ function App() {
                 element={<OrganizerDashboard />}
               />
               <Route exact path="/event-list" element={<ManageEvent />} />
+              <Route exact path="/settings/preferences" element={<Preferences />} />
             </Route>
           </Route>
         </Routes>

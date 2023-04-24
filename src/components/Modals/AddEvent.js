@@ -1,8 +1,13 @@
 import moment from "moment";
 import React from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { FORM_TYPE } from "../../utils/Constant";
 
 export default function AddEvent(props) {
+  const list = localStorage.getItem("customField")
+    ? JSON.parse(localStorage.getItem("customField"))
+    : [];
+
   return (
     <>
       <Modal
@@ -77,7 +82,9 @@ export default function AddEvent(props) {
                     type="date"
                     name="endDate"
                     placeholder="Select endDate"
-                    min={moment(props.inputValue.startDate).format("YYYY-MM-DD")}
+                    min={moment(props.inputValue.startDate).format(
+                      "YYYY-MM-DD"
+                    )}
                     value={props.inputValue.endDate}
                     onChange={props.handleInputValue}
                   />
@@ -178,6 +185,68 @@ export default function AddEvent(props) {
                 onChange={props.onEventSwitchAction}
               />
             </Form.Group>
+
+            {list &&
+              list.map((item, key) => {
+                return (
+                  <div key={key}>
+                    {item.dataType == FORM_TYPE.TEXTBOX && (
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.Description"
+                      >
+                        <Form.Label>
+                          {item.labelName}{" "}
+                          {item.isMandatory && (
+                            <span className="text-danger">*</span>
+                          )}
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          name={item.labelName}
+                          placeholder={`Enter ${item.labelName}`}
+                          onChange={(e) =>
+                            props.handleInputValue(
+                              e,
+                              item.labelName,
+                              item.fid,
+                              item.isMandatory
+                            )
+                          }
+                        />
+                      </Form.Group>
+                    )}
+
+                    {item.dataType == FORM_TYPE.NUMBER && (
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.Description"
+                      >
+                        <Form.Label>
+                          {item.labelName}{" "}
+                          {item.isMandatory && (
+                            <span className="text-danger">*</span>
+                          )}
+                        </Form.Label>
+                        <Form.Control
+                          type="number"
+                          name={item.labelName}
+                          placeholder={`Enter ${item.labelName}`}
+                          value={props.inputValue.description}
+                          onChange={(e) =>
+                            props.handleInputValue(
+                              e,
+                              item.labelName,
+                              item.fid,
+                              item.isMandatory
+                            )
+                          }
+                        />
+                      </Form.Group>
+                    )}
+                  </div>
+                );
+              })}
           </Form>
         </Modal.Body>
         <Modal.Footer>

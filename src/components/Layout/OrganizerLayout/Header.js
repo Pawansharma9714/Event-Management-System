@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   let navigate = useNavigate();
-  
+
   const btnLogout = () => {
     localStorage.removeItem("EventAuth");
     navigate("/organizer/login");
@@ -25,6 +25,30 @@ export default function Header() {
           id="navbar-collapse"
         >
           <ul className="navbar-nav flex-row align-items-center ms-auto">
+            <li className="nav-item navbar-dropdown dropdown-settings dropdown lh-1 me-3">
+              <a
+                className="nav-link dropdown-toggle hide-arrow"
+                href="#"
+                data-bs-toggle="dropdown"
+              >
+                <i className="bx bx-cog"></i>
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li>
+                  <div className="dropdown-divider"></div>
+                </li>
+                <li>
+                  <a className="dropdown-item" onClick={() =>navigate("/settings/preferences")}>
+                    <i className="bx bx-sort"></i>
+                    <span className="align-middle">Preferences</span>
+                  </a>
+                </li>
+                <li>
+                  <div className="dropdown-divider"></div>
+                </li>
+              </ul>
+            </li>
+
             <li className="nav-item navbar-dropdown dropdown-user dropdown">
               <a
                 className="nav-link dropdown-toggle hide-arrow"
@@ -71,7 +95,10 @@ export default function Header() {
                   <div className="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a className="dropdown-item cursor-pointer" onClick={btnLogout}>
+                  <a
+                    className="dropdown-item cursor-pointer"
+                    onClick={btnLogout}
+                  >
                     <i className="bx bx-power-off me-2"></i>
                     <span className="align-middle">Log Out</span>
                   </a>

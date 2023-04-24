@@ -5,11 +5,12 @@ import { ADMIN_APIS } from "../../../utils/Config";
 import { toast } from "react-toastify";
 import axios from "axios";
 import AddEvent from "../../Modals/AddEvent";
+import _ from "lodash";
 
 export default function ManageEvent() {
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([{ name: "" }]);
 
   /* Modal Switch Value. */
   const [isEventSwitchOn, setIsEventSwitchOn] = useState(false);
@@ -28,9 +29,20 @@ export default function ManageEvent() {
   });
 
   /* Modal Input Onchange. */
-  const handleInputValue = (e) => {
+  const handleInputValue = async (e, labelName, fid, isMandatory) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
+
+    // let oldgroupdata = data;
+    // let filterdata = await _.find(oldgroupdata, { name: labelName });
+    // let filterdata_index = oldgroupdata.findIndex((p) =>
+    //   console.log("--p--", p.name, labelName)
+    // );
+    // console.log("filterdata_index==", filterdata_index);
+    // let objprocdata = filterdata;
+    // // console.log("objprocdata==",objprocdata)
+    // let proc_id = await _.find(objprocdata, { id: fid });
+    // // console.log("proc_id", proc_id);
   };
 
   /* Modal Close Button. */
