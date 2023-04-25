@@ -51,34 +51,7 @@ export default function AddEvent(props) {
                 id="horizontal-home"
               >
                 <Form>
-                  {/*  */}
-                  <Row>
-                    {props.eventList &&
-                      props.eventList.map((data) => {
-                        return (
-                          data.checkedList &&
-                          data.checkedList.map((item) => {
-                            return (
-                              <Col className="col-6">
-                                <Form.Group
-                                  className="mb-3 col-auto"
-                                  controlId="exampleForm.EventName"
-                                >
-                                  <Form.Label>{item}</Form.Label>
-                                  <Form.Control
-                                    type="text"
-                                    name={item}
-                                    placeholder={`Enter ${item}`}
-                                    onChange={props.handleInputValue}
-                                  />
-                                </Form.Group>
-                              </Col>
-                            );
-                          })
-                        );
-                      })}
-                  </Row>
-                  {/*  */}
+                  
                   <Row>
                     <Col>
                       <Form.Group

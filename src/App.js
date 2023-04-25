@@ -12,6 +12,7 @@ import OraganizerLogin from "./components/Pages/Auth/OraganizerLogin";
 import ManageEvent from "./components/Pages/Event/ManageEvent";
 import OrganizerDashboard from "./components/Pages/OrganizerDashboard";
 import Preferences from "./components/Pages/CustomField/Preferences";
+import UserRegister from "./components/Pages/Auth/UserRegister";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route exact path="/" element={<Login />} />
+          <Route exact path="/user/user-view" element={<UserRegister />} />
           <Route exact path="/organizer/login" element={<OraganizerLogin />} />
           <Route exact path="*" element={<PageNotFound />} />
           <Route element={<Layout />}>

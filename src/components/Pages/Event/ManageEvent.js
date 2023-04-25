@@ -105,7 +105,9 @@ export default function ManageEvent() {
       feeDescription: inputValue.feeDescription,
       hideOtherField: isEventSwitchOn,
     };
-    let eventDataList = [{eventList:dataList, checkedList:checkedList}];
+    let eventDataList = eventList.concat([
+      { eventList: [dataList], checkedList: checkedList },
+    ]);
     localStorage.setItem("eventDataList", JSON.stringify(eventDataList));
 
     // if (!inputValue.eventname) {
@@ -190,7 +192,6 @@ export default function ManageEvent() {
   /* Modal UpdateCustomField Button */
   const handleUpdateCustomField = () => {
     console.log("===updateCustom===");
-    console.log("checkedList2==", checkedList);
   };
 
   /* List */
@@ -239,8 +240,6 @@ export default function ManageEvent() {
           handleBtnUpdate={handleBtnUpdate}
           handleAddCustomField={handleAddCustomField}
           handleUpdateCustomField={handleUpdateCustomField}
-          // 
-          eventList={eventList}
         />
 
         <div className="table-responsive text-nowrap">
@@ -261,42 +260,51 @@ export default function ManageEvent() {
               </tr>
             </thead>
             <tbody className="table-border-bottom-0">
-              {data && data.length > 0 ? (
+              {eventList && eventList.length > 0 ? (
                 <>
-                  {data &&
-                    data.map((item, key) => {
+                  {eventList &&
+                    eventList.map((data, key) => {
                       return (
-                        <tr key={key}>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <div className="demo-inline-spacing">
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-success"
-                                onClick={handleEdit}
-                              >
-                                <span className="tf-icons bx bx-edit"></span>
-                                &nbsp; Edit
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-sm btn-danger"
-                              >
-                                <span className="tf-icons bx bx-trash"></span>
-                                &nbsp; Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
+                        data.eventList &&
+                        data.eventList.map((item) => {
+                          return (
+                            <tr key={key}>
+                              <td> {item.eventname ? item.eventname : "-"}</td>
+                              <td>
+                                {item.description ? item.description : "-"}
+                              </td>
+                              <td>{item.startDate ? item.startDate : "-"}</td>
+                              <td>{item.endDate ? item.endDate : "-"}</td>
+                              <td>{item.location ? item.location : "-"}</td>
+                              <td>{item.city ? item.city : "-"}</td>
+                              <td>
+                                {item.organizerName ? item.organizerName : "-"}
+                              </td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>-</td>
+                              <td>
+                                <div className="demo-inline-spacing">
+                                  <button
+                                    type="button"
+                                    className="btn btn-sm btn-success"
+                                    onClick={handleEdit}
+                                  >
+                                    <span className="tf-icons bx bx-edit"></span>
+                                    &nbsp; Edit
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn btn-sm btn-danger"
+                                  >
+                                    <span className="tf-icons bx bx-trash"></span>
+                                    &nbsp; Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })
                       );
                     })}
                 </>
