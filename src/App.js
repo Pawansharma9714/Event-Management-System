@@ -11,7 +11,7 @@ import EventProtected from "./components/Protected/EventProtected";
 import OraganizerLogin from "./components/Pages/Auth/OraganizerLogin";
 import ManageEvent from "./components/Pages/Event/ManageEvent";
 import OrganizerDashboard from "./components/Pages/OrganizerDashboard";
-import Preferences from "./components/Pages/Preferences";
+import Preferences from "./components/Pages/CustomField/Preferences";
 
 function App() {
   return (

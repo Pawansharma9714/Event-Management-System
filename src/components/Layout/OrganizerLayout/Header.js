@@ -38,7 +38,10 @@ export default function Header() {
                   <div className="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() =>navigate("/settings/preferences")}>
+                  <a
+                    className="dropdown-item cursor-pointer"
+                    onClick={() => navigate("/settings/preferences")}
+                  >
                     <i className="bx bx-sort"></i>
                     <span className="align-middle">Preferences</span>
                   </a>

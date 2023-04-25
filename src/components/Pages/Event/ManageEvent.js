@@ -5,12 +5,17 @@ import { ADMIN_APIS } from "../../../utils/Config";
 import { toast } from "react-toastify";
 import axios from "axios";
 import AddEvent from "../../Modals/AddEvent";
-import _ from "lodash";
 
 export default function ManageEvent() {
   const [add, setAdd] = useState(false);
   const [edit, setEdit] = useState(false);
   const [data, setData] = useState([{ name: "" }]);
+  let eventList = JSON.parse(localStorage.getItem("eventDataList"));
+
+  const [addGroupList, setAddGroupList] = useState(true);
+  const [customGroupList, setCustomGroupList] = useState(false);
+
+  const [checkedList, setCheckedList] = useState([]);
 
   /* Modal Switch Value. */
   const [isEventSwitchOn, setIsEventSwitchOn] = useState(false);
@@ -29,24 +34,18 @@ export default function ManageEvent() {
   });
 
   /* Modal Input Onchange. */
-  const handleInputValue = async (e, labelName, fid, isMandatory) => {
+  const handleInputValue = async (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inputValue, [name]: value });
-
-    // let oldgroupdata = data;
-    // let filterdata = await _.find(oldgroupdata, { name: labelName });
-    // let filterdata_index = oldgroupdata.findIndex((p) =>
-    //   console.log("--p--", p.name, labelName)
-    // );
-    // console.log("filterdata_index==", filterdata_index);
-    // let objprocdata = filterdata;
-    // // console.log("objprocdata==",objprocdata)
-    // let proc_id = await _.find(objprocdata, { id: fid });
-    // // console.log("proc_id", proc_id);
   };
 
   /* Modal Close Button. */
-  const handleClose = () => setAdd(false);
+  const handleClose = () => {
+    setAdd(false);
+    setAddGroupList(true);
+    setCustomGroupList(false);
+    setCheckedList([]);
+  };
 
   /* List Add Button. */
   const handleAdd = () => {
@@ -69,78 +68,129 @@ export default function ManageEvent() {
     setIsEventSwitchOn(!isEventSwitchOn);
   };
 
+  /* Modal Checkbox Onchange. */
+  const handleCheck = (event) => {
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setCheckedList([...checkedList, value]);
+    } else {
+      const filteredList = checkedList.filter((item) => item !== value);
+      setCheckedList(filteredList);
+    }
+  };
+
+  const groupAddEvent = () => {
+    setAddGroupList(true);
+    setCustomGroupList(false);
+  };
+  const groupCustomEvent = () => {
+    setAddGroupList(false);
+    setCustomGroupList(true);
+  };
+
   /* Modal Add Button */
   const handleBtnAdd = async () => {
-    if (!inputValue.eventname) {
-      toast.dismiss();
-      toast.error("Enter Event Name");
-      return false;
-    }
-    if (!inputValue.description) {
-      toast.dismiss();
-      toast.error("Enter Description");
-      return false;
-    }
-    if (!inputValue.startDate) {
-      toast.dismiss();
-      toast.error("Select StartDate");
-      return false;
-    }
-    if (!inputValue.endDate) {
-      toast.dismiss();
-      toast.error("Select End Date");
-      return false;
-    }
-    if (!inputValue.location) {
-      toast.dismiss();
-      toast.error("Enter Location");
-      return false;
-    }
-    if (!inputValue.city) {
-      toast.dismiss();
-      toast.error("Enter City");
-      return false;
-    }
-    if (!inputValue.organizerName) {
-      toast.dismiss();
-      toast.error("Enter Organizer Name");
-      return false;
-    }
-    if (!inputValue.fees) {
-      toast.dismiss();
-      toast.error("Enter Fees");
-      return false;
-    }
-    if (!inputValue.feeDescription) {
-      toast.dismiss();
-      toast.error("Enter Fees Description");
-      return false;
-    }
+    console.log("==Add Event==");
+    let dataList = {
+      eventname: inputValue.eventname,
+      description: inputValue.description,
+      startDate: inputValue.startDate,
+      endDate: inputValue.endDate,
+      location: inputValue.location,
+      city: inputValue.city,
+      organizerName: inputValue.organizerName,
+      fees: inputValue.fees,
+      feeDescription: inputValue.feeDescription,
+      hideOtherField: isEventSwitchOn,
+    };
+    let eventDataList = [{eventList:dataList, checkedList:checkedList}];
+    localStorage.setItem("eventDataList", JSON.stringify(eventDataList));
 
-    await axios
-      .post(`${ADMIN_APIS.EVENT.ADD}`, {
-        eventname: inputValue.eventname,
-        description: inputValue.description,
-        startDate: inputValue.startDate,
-        endDate: inputValue.endDate,
-        location: inputValue.location,
-        city: inputValue.city,
-        organizerName: inputValue.organizerName,
-        fees: inputValue.fees,
-        feeDescription: inputValue.feeDescription,
-        hideOtherField: isEventSwitchOn,
-      })
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log("err===", err);
-      });
+    // if (!inputValue.eventname) {
+    //   toast.dismiss();
+    //   toast.error("Enter Event Name");
+    //   return false;
+    // }
+    // if (!inputValue.description) {
+    //   toast.dismiss();
+    //   toast.error("Enter Description");
+    //   return false;
+    // }
+    // if (!inputValue.startDate) {
+    //   toast.dismiss();
+    //   toast.error("Select StartDate");
+    //   return false;
+    // }
+    // if (!inputValue.endDate) {
+    //   toast.dismiss();
+    //   toast.error("Select End Date");
+    //   return false;
+    // }
+    // if (!inputValue.location) {
+    //   toast.dismiss();
+    //   toast.error("Enter Location");
+    //   return false;
+    // }
+    // if (!inputValue.city) {
+    //   toast.dismiss();
+    //   toast.error("Enter City");
+    //   return false;
+    // }
+    // if (!inputValue.organizerName) {
+    //   toast.dismiss();
+    //   toast.error("Enter Organizer Name");
+    //   return false;
+    // }
+    // if (!inputValue.fees) {
+    //   toast.dismiss();
+    //   toast.error("Enter Fees");
+    //   return false;
+    // }
+    // if (!inputValue.feeDescription) {
+    //   toast.dismiss();
+    //   toast.error("Enter Fees Description");
+    //   return false;
+    // }
+
+    // await axios
+    //   .post(`${ADMIN_APIS.EVENT.ADD}`, {
+    //     eventname: inputValue.eventname,
+    //     description: inputValue.description,
+    //     startDate: inputValue.startDate,
+    //     endDate: inputValue.endDate,
+    //     location: inputValue.location,
+    //     city: inputValue.city,
+    //     organizerName: inputValue.organizerName,
+    //     fees: inputValue.fees,
+    //     feeDescription: inputValue.feeDescription,
+    //     hideOtherField: isEventSwitchOn,
+    //   })
+    //   .then((res) => {
+    //     console.log("res", res);
+    //     setAddGroupList(true);
+    //     setCustomGroupList(false);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err===", err);
+    //   });
+  };
+
+  /* Modal AddCustomField Button */
+  const handleAddCustomField = () => {
+    console.log("custom--field");
   };
 
   /* Modal Update Button */
   const handleBtnUpdate = () => {
     console.log("===update===");
+  };
+
+  /* Modal UpdateCustomField Button */
+  const handleUpdateCustomField = () => {
+    console.log("===updateCustom===");
+    console.log("checkedList2==", checkedList);
   };
 
   /* List */
@@ -180,8 +230,17 @@ export default function ManageEvent() {
           handleInputValue={handleInputValue}
           isEventSwitchOn={isEventSwitchOn}
           onEventSwitchAction={onEventSwitchAction}
+          handleCheck={handleCheck}
+          addGroupList={addGroupList}
+          customGroupList={customGroupList}
+          groupAddEvent={groupAddEvent}
+          groupCustomEvent={groupCustomEvent}
           handleBtnAdd={handleBtnAdd}
           handleBtnUpdate={handleBtnUpdate}
+          handleAddCustomField={handleAddCustomField}
+          handleUpdateCustomField={handleUpdateCustomField}
+          // 
+          eventList={eventList}
         />
 
         <div className="table-responsive text-nowrap">
