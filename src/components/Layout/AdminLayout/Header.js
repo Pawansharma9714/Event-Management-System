@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   let navigate = useNavigate();
-  
+
   const btnLogout = () => {
     localStorage.removeItem("Auth");
     navigate("/");
@@ -62,7 +62,10 @@ export default function Header() {
                   <div className="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a
+                    className="dropdown-item cursor-pointer"
+                    onClick={() => navigate("/manage-profile")}
+                  >
                     <i className="bx bx-user me-2"></i>
                     <span className="align-middle">My Profile</span>
                   </a>
@@ -71,7 +74,10 @@ export default function Header() {
                   <div className="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a className="dropdown-item cursor-pointer" onClick={btnLogout}>
+                  <a
+                    className="dropdown-item cursor-pointer"
+                    onClick={btnLogout}
+                  >
                     <i className="bx bx-power-off me-2"></i>
                     <span className="align-middle">Log Out</span>
                   </a>

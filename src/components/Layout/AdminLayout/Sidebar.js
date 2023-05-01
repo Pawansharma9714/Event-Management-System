@@ -10,7 +10,7 @@ export default function Sidebar() {
         className="layout-menu menu-vertical menu bg-menu-theme"
       >
         <div className="app-brand demo">
-          <a href="#" className="app-brand-link">
+          <a className="app-brand-link">
             <span className="app-brand-text demo menu-text fw-bolder ms-2">
               BSS LLP
             </span>

@@ -1,7 +1,13 @@
-import React from "react";
-import AdminLayout from "./AdminLayout/AdminLayout";
-import OrganizerLayout from "./OrganizerLayout/OrganizerLayout";
+import React, { Suspense } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import Loader from "../../utils/Loader";
+// import AdminLayout from "./AdminLayout/AdminLayout";
+// import OrganizerLayout from "./OrganizerLayout/OrganizerLayout";
+
+const AdminLayout = React.lazy(() => import("./AdminLayout/AdminLayout"));
+const OrganizerLayout = React.lazy(() =>
+  import("./OrganizerLayout/OrganizerLayout")
+);
 
 export default function Layout() {
   let location = useLocation();
@@ -10,13 +16,28 @@ export default function Layout() {
   return (
     <>
       {location.pathname === "/dashboard" ||
-      location.pathname === "/organizer-list" ? (
-        <>{auth ? <AdminLayout /> : <Navigate to="/" />}</>
+      location.pathname === "/organizer-list" ||
+      location.pathname === "/manage-profile" ? (
+        <>
+          {auth ? (
+            <Suspense fallback={<Loader />}>
+              <AdminLayout />{" "}
+            </Suspense>
+          ) : (
+            <Navigate to="/" />
+          )}
+        </>
       ) : (
         <>
-          {eventAuth ? <OrganizerLayout /> : <Navigate to="/organizer/login" />}
+          {eventAuth ? (
+            <Suspense fallback={<Loader />}>
+              <OrganizerLayout />
+            </Suspense>
+          ) : (
+            <Navigate to="/organizer/login" />
+          )}
         </>
-      ) }
+      )}
     </>
   );
 }

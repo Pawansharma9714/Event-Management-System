@@ -6,7 +6,7 @@ import { ADMIN_APIS } from "../../../utils/Config";
 import Loader from "../../../utils/Loader";
 
 export default function Login() {
-  let auth = localStorage.getItem("Auth");
+  const authDetails = JSON.parse(localStorage.getItem("Auth"));
 
   const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState(false);
@@ -35,36 +35,37 @@ export default function Login() {
       toast.error("Enter Password");
       return false;
     }
+
     await axios
       .post(`${ADMIN_APIS.AUTH.LOGIN}`, {
-        UserName: inputValue.username,
-        Pasword: inputValue.password,
+        username: inputValue.username,
+        password: inputValue.password,
       })
       .then((res) => {
-        if (res.data.success) {
+        if (res.data.status) {
+          let data = { username: res.data.username, token: res.data.token };
           setInputValue("");
-          localStorage.setItem("Auth", true);
+          localStorage.setItem("Auth", JSON.stringify(data));
           navigate("/dashboard");
-        } else {
           toast.dismiss();
-          toast.error("Invalid Credentials");
+          toast.success(res.data.message);
         }
       })
       .catch((err) => {
         toast.dismiss();
-        toast.error(err.message);
+        toast.error(err.response.data.message);
       });
   };
 
   useEffect(() => {
-    if (auth) {
+    if (authDetails && authDetails.username) {
       navigate("/dashboard");
     }
   }, []);
 
   return (
     <>
-      {!auth ? (
+      {!authDetails ? (
         <div className="container-xxl">
           <div className="authentication-wrapper authentication-basic container-p-y">
             <div className="authentication-inner">

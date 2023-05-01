@@ -20,7 +20,9 @@ export default function AddOraganizer(props) {
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.Name">
-                  <Form.Label>Name <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    Name <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="name"
@@ -33,7 +35,9 @@ export default function AddOraganizer(props) {
               </Col>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.ContactNo">
-                  <Form.Label>Contact No <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    Contact No <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="contactno"
@@ -53,7 +57,9 @@ export default function AddOraganizer(props) {
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.Address">
-                  <Form.Label>Address <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    Address <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="address"
@@ -68,7 +74,9 @@ export default function AddOraganizer(props) {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Email <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    Email <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="email"
                     name="email"
@@ -83,7 +91,9 @@ export default function AddOraganizer(props) {
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.UserName">
-                  <Form.Label>UserName <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    UserName <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="username"
@@ -95,7 +105,9 @@ export default function AddOraganizer(props) {
               </Col>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.Password">
-                  <Form.Label>Password <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    Password <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
@@ -110,12 +122,14 @@ export default function AddOraganizer(props) {
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.API Key">
-                  <Form.Label>API Key <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    API Key <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
-                    name="apiKey"
+                    name="apikey"
                     placeholder="Enter API Key"
-                    value={props.inputValue.apiKey}
+                    value={props.inputValue.apikey}
                     onChange={props.handleInputValue}
                   />
                 </Form.Group>
@@ -125,12 +139,14 @@ export default function AddOraganizer(props) {
                   className="mb-3"
                   controlId="exampleForm.Secreat Key"
                 >
-                  <Form.Label>Secreat Key <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    Secreat Key <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
-                    name="secreatKey"
+                    name="secreatkey"
                     placeholder="Enter Secreat Key"
-                    value={props.inputValue.secreatKey}
+                    value={props.inputValue.secreatkey}
                     onChange={props.handleInputValue}
                   />
                 </Form.Group>
@@ -143,24 +159,28 @@ export default function AddOraganizer(props) {
                   className="mb-3"
                   controlId="exampleForm.SMS API Key"
                 >
-                  <Form.Label>SMS API Key <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    SMS API Key <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
-                    name="smsAPIKey"
+                    name="smsapikey"
                     placeholder="Enter SMS API Key"
-                    value={props.inputValue.smsAPIKey}
+                    value={props.inputValue.smsapikey}
                     onChange={props.handleInputValue}
                   />
                 </Form.Group>
               </Col>
               <Col>
                 <Form.Group className="mb-3" controlId="exampleForm.SMS Sender">
-                  <Form.Label>SMS Sender <span className="text-danger">*</span></Form.Label>
+                  <Form.Label>
+                    SMS Sender <span className="text-danger">*</span>
+                  </Form.Label>
                   <Form.Control
                     type="text"
-                    name="smsSnder"
+                    name="smssender"
                     placeholder="Enter SMS Sender"
-                    value={props.inputValue.smsSnder}
+                    value={props.inputValue.smssender}
                     onChange={props.handleInputValue}
                   />
                 </Form.Group>
@@ -171,27 +191,28 @@ export default function AddOraganizer(props) {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>SMS Template <span className="text-danger">*</span></Form.Label>
+              <Form.Label>
+                SMS Template <span className="text-danger">*</span>
+              </Form.Label>
               <Form.Control
                 as="textarea"
-                name="smsTemplate"
+                name="smstemplate"
                 rows={3}
                 placeholder="Enter SMS Template"
-                value={props.inputValue.smsTemplate}
+                value={props.inputValue.smstemplate}
                 onChange={props.handleInputValue}
               />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="exampleForm.Status">
-              {/* <Form.Label>Status</Form.Label> */}
               <Form.Check
                 type="switch"
                 id="custom-switch"
                 name="status"
                 label="Status"
-                value={props.isStatusSwitchOn}
-                checked={props.isStatusSwitchOn ? true : false}
-                onChange={props.onStatusSwitchAction}
+                value={props.inputValue.status}
+                checked={props.inputValue.status}
+                onChange={props.handleInputValue}
               />
             </Form.Group>
 
@@ -199,14 +220,13 @@ export default function AddOraganizer(props) {
               className="mb-3"
               controlId="exampleForm.PaymentIntegration"
             >
-              {/* <Form.Label>Payment Integration</Form.Label> */}
               <Form.Check
                 type="switch"
                 name="paymentIntegration"
                 label="Payment Integration"
-                value={props.isPaymentSwitchOn}
-                checked={props.isPaymentSwitchOn ? true : false}
-                onChange={props.onPaymentSwitchAction}
+                value={props.inputValue.paymentIntegration}
+                checked={props.inputValue.paymentIntegration}
+                onChange={props.handleInputValue}
               />
             </Form.Group>
 
@@ -214,14 +234,13 @@ export default function AddOraganizer(props) {
               className="mb-3"
               controlId="exampleForm.SendSmsPermission"
             >
-              {/* <Form.Label>Send Sms Permission</Form.Label> */}
               <Form.Check
                 type="switch"
-                name="smsPermission"
+                name="isSendSms"
                 label="Send Sms Permission"
-                value={props.isSMSSwitchOn}
-                checked={props.isSMSSwitchOn ? true : false}
-                onChange={props.onSMSSwitchAction}
+                value={props.inputValue.isSendSms}
+                checked={props.inputValue.isSendSms}
+                onChange={props.handleInputValue}
               />
             </Form.Group>
           </Form>

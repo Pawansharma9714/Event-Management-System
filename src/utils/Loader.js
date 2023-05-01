@@ -35,7 +35,7 @@ export default function Loader() {
         `}
       </style>
       
-      <div class="spinner"> </div>
+      <div className="spinner"> </div>
     </>
   )
 }
