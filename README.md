@@ -3,10 +3,8 @@
 Event-Management-System using React JS.
 
 ## CONTENTS
-#INTRODUCTION
 
-
-## What is the task
+# What is the task
 
 Create react app which contains 2 models
 1. Admin model.
