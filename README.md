@@ -30,6 +30,4 @@ Organizer should be able to sign up and login with username and password use JWT
 
 <ul>
   <li>reactJS - libraries for front-end development</li>
-  <li>node.js - evented I/O for the backend</li>
-  <li>Express - fast node.js network app framework</li>
 </ul>
