@@ -6,7 +6,7 @@ Event-Management-System using React JS.
 ## CONTENTS
 ### What is the task
 
-Create react app which contains 2 models
+Create react app which contains 2 models.
 1. Admin model.
 2. Organizer model.
 
